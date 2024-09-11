@@ -1,6 +1,22 @@
 <template>
-  <h1>Thiss is an about page</h1>
-  <TheButton label="adsdsa" />
+  <div class="about">
+    <h1 class="text-3xl">Contador</h1>
+    <p></p>
+  </div>
 </template>
 
-<style></style>
+<style>
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    text-align: center;
+    font-family: sans-serif;
+    width: 40%;
+    margin-top: 1rem ;
+  }
+}
+</style>

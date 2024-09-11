@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "es6",
-    "target": "es6",
-    "jsx": "preserve",
-    "jsxImportSource": "vue",
     "paths": {
       "@/*": ["./src/*"]
     }
