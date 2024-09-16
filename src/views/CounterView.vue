@@ -1,25 +1,44 @@
 <script setup>
+import { ref, computed, watch, watchEffect } from 'vue';
 import { useToast } from 'primevue/usetoast';
-import { ref } from 'vue'
-
 
 const count = ref(0);
 const toast = useToast();
+
+const isMultipleOfTen = computed(() => count.value % 10 === 0);
+
+const alertMessage = computed(() => {
+  if (isMultipleOfTen.value && count.value !== 0) {
+    return `O número ${count.value} é uma dezena!`;
+  }
+  return '';
+});
+
 const show = () => {
   toast.add({
     severity: 'secondary',
     summary: 'Atenção!!!!',
-    detail: 'O número ' + count.value + ' é uma dezena!',
+    detail: alertMessage.value,
     life: 3000
-  })
-}
+  });
+};
 
 const handlePlus = () => {
   count.value++;
-  if (count.value % 10 === 0) {
+};
+
+
+watch(isMultipleOfTen, (newVal) => {
+  if (newVal && count.value !== 0) {
     show();
   }
-}
+});
+
+// watchEffect(() => {
+//   if (isMultipleOfTen.value && count.value !== 0) {
+//     show();
+//   }
+// })
 
 </script>
 
