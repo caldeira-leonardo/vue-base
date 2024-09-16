@@ -1,9 +1,9 @@
-import '@/assets/main.css'
+import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import MainTheme from '@/theme/MainTheme'
+import Aura from '@primevue/themes/aura'
 import App from '@/App.vue'
 import router from '@/router'
 
@@ -16,11 +16,17 @@ import BlockUI from 'primevue/blockui'
 import Button from 'primevue/button'
 import Breadcrumb from 'primevue/breadcrumb'
 import Card from 'primevue/card'
+import Checkbox from 'primevue/checkbox';
 import Chip from 'primevue/chip'
+import ConfirmDialog from 'primevue/confirmdialog';
 import DatePicker from 'primevue/datepicker'
+import Dialog from 'primevue/dialog';
+import Divider from 'primevue/divider';
 import FileUpload from 'primevue/fileupload'
 import FloatLabel from 'primevue/floatlabel'
 import Image from 'primevue/image'
+import InputGroup from 'primevue/inputgroup';
+import InputGroupAddon from 'primevue/inputgroupaddon';
 import InputText from 'primevue/inputtext'
 import InputOtp from 'primevue/inputotp'
 import InputMask from 'primevue/inputmask'
@@ -35,6 +41,7 @@ import Textarea from 'primevue/textarea'
 import Toast from 'primevue/toast'
 import Tooltip from 'primevue/tooltip'
 import ToastService from 'primevue/toastservice'
+import ConfirmationService from 'primevue/confirmationservice'
 import 'primeicons/primeicons.css'
 
 const app = createApp(App)
@@ -50,10 +57,16 @@ app.component('TheButton', Button)
 app.component('TheBreadcrumb', Breadcrumb)
 app.component('TheCard', Card)
 app.component('TheChip', Chip)
+app.component('TheCheckbox', Checkbox)
+app.component('ConfirmDialog', ConfirmDialog)
+app.component('TheDialog', Dialog)
+app.component('TheDivider', Divider)
 app.component('DatePicker', DatePicker)
 app.component('FileUpload', FileUpload)
 app.component('FloatLabel', FloatLabel)
 app.component('TheImage', Image)
+app.component('InputGroup', InputGroup)
+app.component('InputGroupAddon', InputGroupAddon)
 app.component('InputMask', InputMask)
 app.component('InputOtp', InputOtp)
 app.component('InputText', InputText)
@@ -73,7 +86,7 @@ app.use(createPinia())
 app.use(PrimeVue, {
   riple: true,
   theme: {
-    preset: MainTheme,
+    preset: Aura,
     options: {
       darkModeSelector: 'light'
     }
@@ -84,5 +97,6 @@ app.use(PrimeVue, {
 })
 app.use(router)
 app.use(ToastService)
+app.use(ConfirmationService)
 
 app.mount('#app')
