@@ -1,49 +1,59 @@
 <script setup>
-import CustomTodoComponent from '@/components/CustomTodoComponent.vue';
-import { ref, onMounted, watch } from "vue";
+import CustomTodoComponent from '@/components/CustomTodoComponent.vue'
+import { ref, watch, provide } from 'vue'
 
-const todos = ref([]);
-const text = ref("");
+const todos = ref([])
+const newTodo = ref('')
 
-//armazenar os dados no local storage
-watch(todos, (newTodoValue) => {
-  localStorage.setItem("todos", JSON.stringify(newTodoValue));
-}, { deep: true });
+provide('deleteTodo', deleteTodo)
+provide('editTodo', editTodo)
 
-//recuperar do local storage
-onMounted(() => {
-  todos.value = JSON.parse(localStorage.getItem('todos') || []);
-});
-
-//editar um to-do
-function editTodo(id, newTodo) {
-  todos.value = todos.value.map((todo) =>
-    todo.id === id ? { ...todo, text: newTodo } : todo
-  );
+const handleInsert = () => {
+  if (newTodo.value) {
+    todos.value.push({
+      id: Date.now(),
+      title: newTodo.value
+    })
+    newTodo.value = ''
+  }
 }
 
-//deletar um to-do
-function deleteTodo(todo) {
-  todos.value = todos.value.filter((x) => x !== todo);
+// watch(
+//   todos,
+//   (newTodos) => {
+//     localStorage.setItem('todos', JSON.stringify(newTodos))
+//   },
+//   { deep: true }
+// )
+
+function editTodo(id, newTitle) {
+  const todoIndex = todos.value.findIndex(todo => todo.id === id)
+  if (todoIndex !== -1) {
+    todos.value[todoIndex].title = newTitle
+  }
+}
+
+function deleteTodo(id) {
+  const todoIndex = todos.value.findIndex(todo => todo.id === id)
+  if (todoIndex !== -1) {
+    todos.value.splice(todoIndex, 1)
+  }
 }
 
 </script>
 
 <template>
+  <TheToast class="font-sans" />
+  <ConfirmDialog class="font-sans"></ConfirmDialog>
   <main class="flex flex-col items-center justify-center font-sans gap-12">
     <section>
-    <InputGroup>
-      <InputText class="" type="text" v-model="value" placeholder="Adicionar to-do..." />
-      <TheButton
-        class=""
-        icon="pi pi-plus"
-        @click="aaa"
-        :disabled="todos === 'a'"
-      />
-    </InputGroup>
+      <InputGroup>
+        <InputText type="text" v-model="newTodo" placeholder="Adicionar to-do..." />
+        <TheButton icon="pi pi-plus" @click="handleInsert" />
+      </InputGroup>
     </section>
     <section>
-      <CustomTodoComponent needtodo=""/>
+      <CustomTodoComponent v-for="todo in todos" :key="todo.id" :text="todo.title" :id="todo.id"/>
     </section>
   </main>
 </template>

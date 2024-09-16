@@ -18,7 +18,9 @@ import Breadcrumb from 'primevue/breadcrumb'
 import Card from 'primevue/card'
 import Checkbox from 'primevue/checkbox';
 import Chip from 'primevue/chip'
+import ConfirmDialog from 'primevue/confirmdialog';
 import DatePicker from 'primevue/datepicker'
+import Dialog from 'primevue/dialog';
 import Divider from 'primevue/divider';
 import FileUpload from 'primevue/fileupload'
 import FloatLabel from 'primevue/floatlabel'
@@ -39,6 +41,7 @@ import Textarea from 'primevue/textarea'
 import Toast from 'primevue/toast'
 import Tooltip from 'primevue/tooltip'
 import ToastService from 'primevue/toastservice'
+import ConfirmationService from 'primevue/confirmationservice'
 import 'primeicons/primeicons.css'
 
 const app = createApp(App)
@@ -55,6 +58,8 @@ app.component('TheBreadcrumb', Breadcrumb)
 app.component('TheCard', Card)
 app.component('TheChip', Chip)
 app.component('TheCheckbox', Checkbox)
+app.component('ConfirmDialog', ConfirmDialog)
+app.component('TheDialog', Dialog)
 app.component('TheDivider', Divider)
 app.component('DatePicker', DatePicker)
 app.component('FileUpload', FileUpload)
@@ -92,5 +97,6 @@ app.use(PrimeVue, {
 })
 app.use(router)
 app.use(ToastService)
+app.use(ConfirmationService)
 
 app.mount('#app')
